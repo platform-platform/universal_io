@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:universal_io/src/constants/operating_system_constants.dart';
 import 'package:universal_io/src/driver/default_impl_browser.dart';
 
 void main() {
@@ -10,38 +11,38 @@ void main() {
     const macAgent = 'Macintosh; Intel Mac OS X 10_11_6';
 
     test('ios', () {
-      final driver = IODriverFactory.driverFromUserAgent(iosAgent);
+      final driver = driverFromUserAgent(iosAgent);
       final operatingSystem = driver.platformOverrides.operatingSystem;
 
-      expect(operatingSystem, equals('ios'));
+      expect(operatingSystem, equals(OSConstants.iOS));
     }, testOn: 'chrome');
 
     test('windows', () {
-      final driver = IODriverFactory.driverFromUserAgent(windowsAgent);
+      final driver = driverFromUserAgent(windowsAgent);
       final operatingSystem = driver.platformOverrides.operatingSystem;
 
-      expect(operatingSystem, equals('windows'));
+      expect(operatingSystem, equals(OSConstants.windows));
     }, testOn: 'chrome');
 
     test('linux', () {
-      final driver = IODriverFactory.driverFromUserAgent(linuxAgent);
+      final driver = driverFromUserAgent(linuxAgent);
       final operatingSystem = driver.platformOverrides.operatingSystem;
 
-      expect(operatingSystem, equals('linux'));
+      expect(operatingSystem, equals(OSConstants.linux));
     }, testOn: 'chrome');
 
     test('android', () {
-      final driver = IODriverFactory.driverFromUserAgent(androidAgent);
+      final driver = driverFromUserAgent(androidAgent);
       final operatingSystem = driver.platformOverrides.operatingSystem;
 
-      expect(operatingSystem, equals('android'));
+      expect(operatingSystem, equals(OSConstants.android));
     }, testOn: 'chrome');
 
     test('mac', () {
-      final driver = IODriverFactory.driverFromUserAgent(macAgent);
+      final driver = driverFromUserAgent(macAgent);
       final operatingSystem = driver.platformOverrides.operatingSystem;
 
-      expect(operatingSystem, equals('macos'));
+      expect(operatingSystem, equals(OSConstants.macOS));
     }, testOn: 'chrome');
   });
 }

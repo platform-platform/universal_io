@@ -17,12 +17,13 @@ library universal_io.browser_driver;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:html' as html;
-import 'package:meta/meta.dart';
+import 'dart:typed_data';
 
+import 'package:meta/meta.dart';
 import 'package:universal_io/driver.dart';
 import 'package:universal_io/driver_base.dart';
 import 'package:universal_io/prefer_universal/io.dart';
-import 'dart:typed_data';
+import 'package:universal_io/src/constants/operating_system_constants.dart';
 
 part 'browser/http_client.dart';
 
@@ -32,61 +33,57 @@ part 'browser/http_client_request.dart';
 
 part 'browser/http_client_response.dart';
 
-class IODriverFactory {
-  static IODriver driverFromUserAgent(String userAgent) {
-    return IODriver(
-      parent: null,
-      httpOverrides: _BrowserHttpOverrides(),
-      platformOverrides: _platformOverridesFromEnvironment(userAgent),
-      networkInterfaceOverrides: NetworkInterfaceOverrides(),
-    );
-  }
+/// Determines the default [IODriver] _BrowserIODriver_ in browser.
+final IODriver defaultIODriver = driverFromUserAgent(
+  html.window.navigator.userAgent,
+);
 
-  /// Determines the default IODriver:
-  ///   * _BrowserIODriver_ in browser (when 'dart:html' is available).
-  ///   * _BaseIODriver_ in Javascript targets such as Node.JS.
-  ///   * Null otherwise (VM, Flutter).
-  static final IODriver defaultIODriver = driverFromUserAgent(
-    html.window.navigator.userAgent,
+/// Creates [IODriver] based on [userAgent].
+IODriver driverFromUserAgent(String userAgent) {
+  return IODriver(
+    parent: null,
+    httpOverrides: _BrowserHttpOverrides(),
+    platformOverrides: _platformOverridesFromEnvironment(userAgent),
+    networkInterfaceOverrides: NetworkInterfaceOverrides(),
   );
+}
 
-  static String _operatingSystemFromUserAgent(String userAgent) {
-    if (userAgent.contains('iPhone')) {
-      return 'ios';
-    }
-
-    if (userAgent.contains('Mac OS X')) {
-      return 'macos';
-    }
-
-    if (userAgent.contains('Android')) {
-      return 'android';
-    }
-
-    if (userAgent.contains('Windows')) {
-      return 'windows';
-    }
-
-    return 'linux';
+String _operatingSystemFromUserAgent(String userAgent) {
+  if (userAgent.contains('iPhone')) {
+    return OSConstants.iOS;
   }
 
-  static PlatformOverrides _platformOverridesFromEnvironment(String userAgent) {
-    // Locale
-    var locale = 'en';
-    final languages = html.window.navigator.languages;
-    if (languages.isNotEmpty) {
-      locale = languages.first;
-    }
-
-    // Operating system
-    final operatingSystem = _operatingSystemFromUserAgent(userAgent);
-
-    return PlatformOverrides(
-      numberOfProcessors: html.window.navigator.hardwareConcurrency ?? 1,
-      localeName: locale,
-      operatingSystem: operatingSystem,
-    );
+  if (userAgent.contains('Mac OS X')) {
+    return OSConstants.macOS;
   }
+
+  if (userAgent.contains('Android')) {
+    return OSConstants.android;
+  }
+
+  if (userAgent.contains('Windows')) {
+    return OSConstants.windows;
+  }
+
+  return OSConstants.linux;
+}
+
+PlatformOverrides _platformOverridesFromEnvironment(String userAgent) {
+// Locale
+  var locale = 'en';
+  final languages = html.window.navigator.languages;
+  if (languages.isNotEmpty) {
+    locale = languages.first;
+  }
+
+// Operating system
+  final operatingSystem = _operatingSystemFromUserAgent(userAgent);
+
+  return PlatformOverrides(
+    numberOfProcessors: html.window.navigator.hardwareConcurrency ?? 1,
+    localeName: locale,
+    operatingSystem: operatingSystem,
+  );
 }
 
 class _BrowserHttpOverrides extends HttpOverrides {

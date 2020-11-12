@@ -14,10 +14,7 @@
 
 import 'driver_impl_vm.dart'; // <--- IMPORTANT
 
-/// Determines the default IODriver:
-///   * _BrowserIODriver_ in browser (when 'dart:html' is available).
-///   * _BaseIODriver_ in Javascript targets such as Node.JS.
-///   * Null otherwise (VM, Flutter).
+/// Determines the default [IODriver] for (VM, Flutter).
 final IODriver defaultIODriver = IODriver(
   parent: null,
 );
