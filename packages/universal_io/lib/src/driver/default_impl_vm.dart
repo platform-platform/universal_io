@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'driver_impl_vm.dart'; // <--- IMPORTANT
+import 'driver_impl_vm.dart';
 
 /// Determines the default [IODriver] for (VM, Flutter).
 final IODriver defaultIODriver = IODriver(

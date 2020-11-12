@@ -17,7 +17,7 @@ void main() {
         final driver = driverFromUserAgent(iosAgent);
         final operatingSystem = driver.platformOverrides.operatingSystem;
 
-        expect(operatingSystem, equals(OSConstants.iOS));
+        expect(operatingSystem, equals(OS.iOS));
       },
     );
 
@@ -27,7 +27,7 @@ void main() {
         final driver = driverFromUserAgent(windowsAgent);
         final operatingSystem = driver.platformOverrides.operatingSystem;
 
-        expect(operatingSystem, equals(OSConstants.windows));
+        expect(operatingSystem, equals(OS.windows));
       },
     );
 
@@ -37,7 +37,7 @@ void main() {
         final driver = driverFromUserAgent(linuxAgent);
         final operatingSystem = driver.platformOverrides.operatingSystem;
 
-        expect(operatingSystem, equals(OSConstants.linux));
+        expect(operatingSystem, equals(OS.linux));
       },
     );
 
@@ -47,7 +47,7 @@ void main() {
         final driver = driverFromUserAgent(androidAgent);
         final operatingSystem = driver.platformOverrides.operatingSystem;
 
-        expect(operatingSystem, equals(OSConstants.android));
+        expect(operatingSystem, equals(OS.android));
       },
     );
 
@@ -57,7 +57,7 @@ void main() {
         final driver = driverFromUserAgent(macAgent);
         final operatingSystem = driver.platformOverrides.operatingSystem;
 
-        expect(operatingSystem, equals(OSConstants.macOS));
+        expect(operatingSystem, equals(OS.macOS));
       },
     );
   });

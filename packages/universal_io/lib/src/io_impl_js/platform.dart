@@ -113,27 +113,27 @@ class Platform {
   /// This value is `false` if the operating system is a specialized
   /// version of Linux that identifies itself by a different name,
   /// for example Android (see [isAndroid]).
-  static final bool isLinux = (operatingSystem == OSConstants.linux);
+  static final bool isLinux = (operatingSystem == OS.linux);
 
   /// Whether the operating system is a version of
   /// [macOS](https://en.wikipedia.org/wiki/MacOS).
-  static final bool isMacOS = (operatingSystem == OSConstants.macOS);
+  static final bool isMacOS = (operatingSystem == OS.macOS);
 
   /// Whether the operating system is a version of
   /// [Microsoft Windows](https://en.wikipedia.org/wiki/Microsoft_Windows).
-  static final bool isWindows = (operatingSystem == OSConstants.windows);
+  static final bool isWindows = (operatingSystem == OS.windows);
 
   /// Whether the operating system is a version of
   /// [Android](https://en.wikipedia.org/wiki/Android_%28operating_system%29).
-  static final bool isAndroid = (operatingSystem == OSConstants.android);
+  static final bool isAndroid = (operatingSystem == OS.android);
 
   /// Whether the operating system is a version of
   /// [iOS](https://en.wikipedia.org/wiki/IOS).
-  static final bool isIOS = (operatingSystem == OSConstants.iOS);
+  static final bool isIOS = (operatingSystem == OS.iOS);
 
   /// Whether the operating system is a version of
   /// [Fuchsia](https://en.wikipedia.org/wiki/Google_Fuchsia).
-  static final bool isFuchsia = (operatingSystem == OSConstants.fuchsia);
+  static final bool isFuchsia = (operatingSystem == OS.fuchsia);
 
   /// The environment for this process as a map from string key to string value.
   ///

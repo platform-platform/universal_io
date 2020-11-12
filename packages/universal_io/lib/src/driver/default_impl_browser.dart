@@ -50,22 +50,22 @@ IODriver driverFromUserAgent(String userAgent) {
 
 String _operatingSystemFromUserAgent(String userAgent) {
   if (userAgent.contains('iPhone')) {
-    return OSConstants.iOS;
+    return OS.iOS;
   }
 
   if (userAgent.contains('Mac OS X')) {
-    return OSConstants.macOS;
+    return OS.macOS;
   }
 
   if (userAgent.contains('Android')) {
-    return OSConstants.android;
+    return OS.android;
   }
 
   if (userAgent.contains('Windows')) {
-    return OSConstants.windows;
+    return OS.windows;
   }
 
-  return OSConstants.linux;
+  return OS.linux;
 }
 
 PlatformOverrides _platformOverridesFromEnvironment(String userAgent) {
