@@ -69,14 +69,8 @@ String _operatingSystemFromUserAgent(String userAgent) {
 }
 
 PlatformOverrides _platformOverridesFromEnvironment(String userAgent) {
-// Locale
-  var locale = 'en';
   final languages = html.window.navigator.languages;
-  if (languages.isNotEmpty) {
-    locale = languages.first;
-  }
-
-// Operating system
+  final locale = languages.isNotEmpty ? languages.first : 'en';
   final operatingSystem = _operatingSystemFromUserAgent(userAgent);
 
   return PlatformOverrides(

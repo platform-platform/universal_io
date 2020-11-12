@@ -1,3 +1,4 @@
+@TestOn('browser')
 import 'package:test/test.dart';
 import 'package:universal_io/src/constants/operating_system_constants.dart';
 import 'package:universal_io/src/driver/default_impl_browser.dart';
@@ -18,7 +19,6 @@ void main() {
 
         expect(operatingSystem, equals(OSConstants.iOS));
       },
-      testOn: 'chrome',
     );
 
     test(
@@ -29,7 +29,6 @@ void main() {
 
         expect(operatingSystem, equals(OSConstants.windows));
       },
-      testOn: 'chrome',
     );
 
     test(
@@ -40,7 +39,6 @@ void main() {
 
         expect(operatingSystem, equals(OSConstants.linux));
       },
-      testOn: 'chrome',
     );
 
     test(
@@ -51,7 +49,6 @@ void main() {
 
         expect(operatingSystem, equals(OSConstants.android));
       },
-      testOn: 'chrome',
     );
 
     test(
@@ -62,7 +59,6 @@ void main() {
 
         expect(operatingSystem, equals(OSConstants.macOS));
       },
-      testOn: 'chrome',
     );
   });
 }
