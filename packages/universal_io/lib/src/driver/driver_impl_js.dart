@@ -65,7 +65,7 @@ abstract class InternetAddressOverrides {
 class IODriver {
   /// Access to zone-local instance of [IODriver].
   static final ZoneLocal<IODriver> zoneLocal = ZoneLocal<IODriver>(
-    defaultValue: defaultIODriver,
+    defaultValue: IODriverFactory.defaultIODriver,
   );
 
   /// Returns the driver used by the current zone.
