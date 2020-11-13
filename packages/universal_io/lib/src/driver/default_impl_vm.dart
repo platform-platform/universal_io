@@ -14,7 +14,7 @@
 
 import 'driver_impl_vm.dart';
 
-/// Determines the default [IODriver] for (VM, Flutter).
+/// Determines the default [IODriver] for VM, Flutter.
 final IODriver defaultIODriver = IODriver(
   parent: null,
 );
