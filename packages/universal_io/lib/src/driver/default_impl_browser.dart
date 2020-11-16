@@ -23,7 +23,6 @@ import 'package:meta/meta.dart';
 import 'package:universal_io/driver.dart';
 import 'package:universal_io/driver_base.dart';
 import 'package:universal_io/prefer_universal/io.dart';
-import 'package:universal_io/src/constants/operating_system.dart';
 
 part 'browser/http_client.dart';
 

@@ -44,7 +44,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:universal_io/src/constants/operating_system.dart';
 import 'package:universal_io/src/driver/driver_impl_js.dart';
 
 /// Information about the environment in which the current program is running.

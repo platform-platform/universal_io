@@ -25,6 +25,8 @@ import 'default_impl_js.dart'
 export 'default_impl_js.dart'
     if (dart.library.html) 'default_impl_browser.dart';
 
+export '../constants/operating_system.dart';
+
 /// Implements static members of [HttpServer].
 ///
 /// Note that [HttpServer] constructor uses Dart SDK implementation
