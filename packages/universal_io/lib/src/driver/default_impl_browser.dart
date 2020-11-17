@@ -17,56 +17,68 @@ library universal_io.browser_driver;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:html' as html;
-import 'package:meta/meta.dart';
+import 'dart:typed_data';
 
+import 'package:meta/meta.dart';
 import 'package:universal_io/driver.dart';
 import 'package:universal_io/driver_base.dart';
 import 'package:universal_io/prefer_universal/io.dart';
-import 'dart:typed_data';
 
 part 'browser/http_client.dart';
+
 part 'browser/http_client_exception.dart';
+
 part 'browser/http_client_request.dart';
+
 part 'browser/http_client_response.dart';
 
-/// Determines the default IODriver:
-///   * _BrowserIODriver_ in browser (when 'dart:html' is available).
-///   * _BaseIODriver_ in Javascript targets such as Node.JS.
-///   * Null otherwise (VM, Flutter).
-final IODriver defaultIODriver = IODriver(
-  parent: null,
-  httpOverrides: _BrowserHttpOverrides(),
-  platformOverrides: _platformOverridesFromEnvironment(),
-  networkInterfaceOverrides: NetworkInterfaceOverrides(),
+/// Determines the default [IODriver] _BrowserIODriver_ in browser.
+final IODriver defaultIODriver = driverFromUserAgent(
+  html.window.navigator.userAgent,
 );
 
-String _operatingSystemFromUserAgent(String userAgent) {
-  final userAgent = html.window.navigator.userAgent;
-  if (userAgent.contains('Mac OS X')) {
-    return 'macos';
-  }
-  if (userAgent.contains('CrOS')) {
-    return 'linux';
-  }
-  if (userAgent.contains('Android')) {
-    return 'android';
-  }
-  if (userAgent.contains('iPhone')) {
-    return 'ios';
-  }
-  return 'windows';
+/// Creates a new [IODriver] based on the given [userAgent] value.
+IODriver driverFromUserAgent(String userAgent) {
+  return IODriver(
+    parent: null,
+    httpOverrides: _BrowserHttpOverrides(),
+    platformOverrides: _platformOverridesFromEnvironment(userAgent),
+    networkInterfaceOverrides: NetworkInterfaceOverrides(),
+  );
 }
 
-PlatformOverrides _platformOverridesFromEnvironment() {
-  // Locale
-  var locale = 'en';
-  final languages = html.window.navigator.languages;
-  if (languages.isNotEmpty) {
-    locale = languages.first;
+/// Defines the operating system using the given [userAgent].
+///
+/// Returns the operating system name from the [OperatingSystem] class
+/// that matches to given [userAgent] value.
+/// The resulting value defaults to the [OperatingSystem.linux].
+String _operatingSystemFromUserAgent(String userAgent) {
+  if(userAgent == null) return OperatingSystem.linux;
+
+  if (userAgent.contains('iPhone')) {
+    return OperatingSystem.iOS;
   }
 
-  // Operating system
-  final userAgent = html.window.navigator.userAgent;
+  if (userAgent.contains('Mac OS X')) {
+    return OperatingSystem.macOS;
+  }
+
+  if (userAgent.contains('Android')) {
+    return OperatingSystem.android;
+  }
+
+  if (userAgent.contains('Windows')) {
+    return OperatingSystem.windows;
+  }
+
+  return OperatingSystem.linux;
+}
+
+/// Creates a new [PlatformOverrides] instance using the given [userAgent]
+/// and the environment.
+PlatformOverrides _platformOverridesFromEnvironment(String userAgent) {
+  final languages = html.window.navigator.languages;
+  final locale = languages.isNotEmpty ? languages.first : 'en';
   final operatingSystem = _operatingSystemFromUserAgent(userAgent);
 
   return PlatformOverrides(
